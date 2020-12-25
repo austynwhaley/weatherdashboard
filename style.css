@@ -1,58 +1,31 @@
 .searchColumn {
-    background-color: #eee;
-}
-
-h2, h3 {
-    padding-top: 10px;
-    font-weight: 600;
-}
-
-h4 {
-    font-weight: 600;
+    margin-top: 1%;
+    background-color: rgb(219, 216, 216);
 }
 
 .container {
     max-width: 1300px;
 }
 
-.bg-primary, .input-group {
-    margin-bottom: 10px;
-}
-
-.btn-group-vertical {
-    width: 100%;
-    display: inline-block;
-}
-
-.btn-light {
-    text-align: left;
-}
-
-.uvPadding {
-    padding: 7px;
-    border-radius: 0.3rem;
-}
-
-.card-body {
-    padding: 0.75rem;
-    padding-bottom: 0;
-}
-
-#currentWeather {
+#cityStatus {
     border: solid 1px rgba(0,0,0,.125);
     border-radius: 0.3rem;
     margin: 15px 0 15px 0;
     padding: 15px;
 }
 
-#previousSearch {
-    margin-bottom: 15px;
-    max-height: 408px;
-    overflow: auto;
+#forcastDay {
+    border: solid 1px rgba(0,0,0,.125);
+    border-radius: 0.3rem;
+    margin: 15px 0 15px 0;
+    padding: 15px;
+    background-color: rgb(21, 103, 235);
 }
 
-@media (max-width:768px) {
-    #previousSearch {
-        max-height: 152px;
-    }
+h4{
+    color: white
+}
+
+#statusInfo {
+    padding: 10px;
 }

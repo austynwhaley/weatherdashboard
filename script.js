@@ -1,6 +1,6 @@
-var apiKey = "abedb9d601e3b4828d2d985b7119ff3c";
-var city = $('#city-input').val()
-var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "city&units=metric&APPID=" + apiKey;
+var apiKey = "2a150efcdc8fd6427901a38f082e72cc";
+var city = 'Cincinnati'
+var queryURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&APPID=${apiKey}`;
 var submitBtn = $('#submit')
 
 function getWeather(){
@@ -9,13 +9,18 @@ function getWeather(){
         method: 'GET',
     }).then(function(response) {
         console.log(response)
-        var weatherInfo = {
+        var searchInfo = {
+            name: response.name,
             temperature: response.main.temp,
             humidity: response.main.humidity,
             wind: response.wind.speed
         }
+
+        $('#currentWeatherName').text(searchInfo.name);
     });
 };
+
+
 
 
 $('#submit').on('click', function(event) {
@@ -30,5 +35,7 @@ $('#submit').on('click', function(event) {
     }
     
 });
+
+
 
 
