@@ -1,16 +1,19 @@
 var apiKey = "2a150efcdc8fd6427901a38f082e72cc";
-var city = 'Boston'
 var submitBtn = $('#submitBtn')
+var city = $('#cityInput').val();
 
 
-function getWeather(){
+function getWeather(city){
+
+    
+    var city = $('#cityInput').val();
     var queryURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&APPID=${apiKey}`;
     $.ajax({
         url: queryURL,
         method: 'GET',
     }).then(function(response) {
         
-        var searchInfo = {
+        var weatherInfo = {
             name: response.name,
             temperature: response.main.temp,
             humidity: response.main.humidity,
@@ -30,31 +33,32 @@ function getWeather(){
             }).then(function(response) {
                 
                 let currUVIndex = response.value;
-                let uvSeverity = "green";
+                let uvColor = "green";
                 let textColor = "white"
                 
                 if (currUVIndex >= 11) {
-                    uvSeverity = "purple";
+                    uvColor = "purple";
                 } else if (currUVIndex >= 8) {
-                    uvSeverity = "red";
+                    uvColor = "red";
                 } else if (currUVIndex >= 6) {
-                    uvSeverity = "orange";
+                    uvColor = "orange";
                     textColour = "black"
                 } else if (currUVIndex >= 3) {
-                    uvSeverity = "yellow";
+                    uvColor = "yellow";
                     textColour = "black"
                 }
-        
-                $('#uvIndex').append(`UV Index: <span class="text-${textColor} uvPadding" style="background-color: ${uvSeverity};">${currUVIndex}</span></p>`)
+
+                
+                $('#uvIndex').append(`UV Index: <span class="text-${textColor} uvPadding" style="background-color: ${uvColor};">${currUVIndex}</span></p>`)
             });
         };
         getUvIndex(response);
 
 
-        $('#currentWeatherName').text(searchInfo.name);
-        $('#temperature').text("Temperature: " + searchInfo.temperature + "°C");
-        $('#humidity').text("Humidity: " + searchInfo.humidity + "%");
-        $('#windSpeed').text("Wind Speed: " + searchInfo.wind + "m/s");
+        $('#currentWeatherName').text(weatherInfo.name);
+        $('#temperature').text("Temperature: " + weatherInfo.temperature + "°C");
+        $('#humidity').text("Humidity: " + weatherInfo.humidity + "%");
+        $('#windSpeed').text("Wind Speed: " + weatherInfo.wind + "m/s");
     });
     
     
@@ -62,33 +66,46 @@ function getWeather(){
 
 
 
-function getForcast(){
+function getForcast(city){
+
+    var city = $('#cityInput').val();
     var queryURL = `http://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}`;
 
     $.ajax({
         url: queryURL,
         method: 'GET',
     }).then(function(response) {
-        console.log(response)
+        
+
+        var forcastInfo = {
+            date: response.list.dt_text,
+            temp: response.list.main.temp,
+            humidity: response.list.main.humidity,
+            icon: response.list.weather[0].icon
+
+        };
+
+        console.log(forcastInfo)
+
     });
-};
+
+}    
 
 
 
 $('#submitBtn').on('click', function(event) {
 
-    
+    console.log($('#cityInput').val())
     event.preventDefault();
     getWeather();
     getForcast();
-
-    var key = 'city';
-    var value = $('#city-input').val();
-    if (key && value) {
-        localStorage.setItem(key, value) 
-    };
-    
 });
+
+$('#searchHistory').on('click', function(event){
+    event.preventDefault();
+    getWeather();
+    getForcast();
+})
 
 //finish forcast function
 // add moment js for current days of the week
